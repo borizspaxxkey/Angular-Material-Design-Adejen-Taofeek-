@@ -14,9 +14,11 @@ const SMALL_WIDTH_BREAKPOINT = 720;
 })
 export class SidenavComponent implements OnInit {
 
-  private mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
+  mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
 
+  isDarkTheme: boolean = false;
   users: Observable<User[]>;
+  dir: string = 'ltr';
 
   @ViewChild(MatSidenav, { static: true }) sidenav: MatSidenav;
 
@@ -47,4 +49,12 @@ export class SidenavComponent implements OnInit {
     return this.mediaMatcher.matches;
   }
 
+  toggleTheme() {
+    this.isDarkTheme = !this.isDarkTheme;
+  }
+
+  toggleDir() {
+    this.dir = this.dir == 'ltr' ? 'rtl' : 'ltr';
+    this.sidenav.toggle().then(() => this.sidenav.toggle());
+  }
 }
